@@ -1,6 +1,6 @@
 
 local G2L = {};
-
+local currentsizeg = UDim2.new(0.3, 0, 0.4, 0)
 -- StarterGui.StyrosGui
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[StyrosGui]];
@@ -2165,7 +2165,7 @@ end)
 
 function StyAPI:Open()
 	local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
-	local tween = TweenService:Create(Sty_Gui.MainGui, tweenInfo, {Size = UDim2.new(0.335, 0, 0.405, 0)})
+	local tween = TweenService:Create(Sty_Gui.MainGui, tweenInfo, {Size = currentsizeg})
 	tween:Play()
 end
 function StyAPI:Close()
@@ -3738,6 +3738,27 @@ function StyAPI:Downloadfile(ServerUrl, fileName, saveAs)
 end
 
 
+-- Define sizes
+local sizeNormal = UDim2.new(0.3, 0, 0.4, 0)
+local sizeMedium = UDim2.new(0.4, 0, 0.5, 0)
+local sizeLarge = UDim2.new(0.6, 0, 0.7, 0)
+
+-- Reference to your GUI element
+local myGui = G2L["2"]-- change to your actual GUI object
+
+-- Function to set size
+local function setGuiSize(sizeType)
+	if sizeType == "Normal" then
+		myGui.Size = sizeNormal
+	elseif sizeType == "Medium" then
+		myGui.Size = sizeMedium
+	elseif sizeType == "Large" then
+		myGui.Size = sizeLarge
+	else
+		warn("Unknown size type: " .. tostring(sizeType))
+	end
+	StyAPI:Open()
+end
 
 local Sty_HideKEy = false -- Initialize Sty_HideKEy
 StyAPI:AddKeybind("Sty_Setting", "GUI Toggle", "Keybind for hiding the gui", Enum.KeyCode.F, function(callbackValue)
@@ -3794,6 +3815,9 @@ StyAPI:AddWholeButton("Sty_Setting", "Delete Config", Color3.fromRGB(85, 85, 127
 end)
 
 StyAPI:AddPadding("Sty_Setting", "Miscellaneous")
+StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Small", "Medium", "Large"}, function(selected)
+    setGuiSize(selected) 
+end)
 StyAPI:AddWholeButton("Sty_Setting", "Delete GUI", Color3.fromRGB(65, 0, 0), function()
 	StyAPI:AddPopup("Hmmmm..", "You sure?", {"Yes", "No"}, function(popupCallback)
 		if popupCallback == "Yes" then
@@ -3849,8 +3873,9 @@ ScriptErrorLogs.InputBegan:Connect(function(input)
 	end
 end)
 
-AddMiniNoti("Created by: SHUFel")
-
+task.delay(1, function()
+	AddMiniNoti("Created by: SHUFel")
+end)
 
 
 return StyAPI -- Return the StyAPI table for further use
