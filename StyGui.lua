@@ -3766,6 +3766,9 @@ StyAPI:AddKeybind("Sty_Setting", "GUI Toggle", "Keybind for hiding the gui", Enu
 		StyAPI:Close()
 	end
 end)
+StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Normal", "Medium", "Large"}, function(selected)
+    setGuiSize(selected) 
+end)
 
 function findMatchingConfigs()
     local matched = {}
@@ -3811,9 +3814,7 @@ StyAPI:AddWholeButton("Sty_Setting", "Delete Config", Color3.fromRGB(85, 85, 127
 end)
 
 StyAPI:AddPadding("Sty_Setting", "Miscellaneous")
-StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Normal", "Medium", "Large"}, function(selected)
-    setGuiSize(selected) 
-end)
+
 StyAPI:AddWholeButton("Sty_Setting", "Delete GUI", Color3.fromRGB(65, 0, 0), function()
 	StyAPI:AddPopup("Hmmmm..", "You sure?", {"Yes", "No"}, function(popupCallback)
 		if popupCallback == "Yes" then
