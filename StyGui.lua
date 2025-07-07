@@ -3815,7 +3815,7 @@ StyAPI:AddWholeButton("Sty_Setting", "Delete Config", Color3.fromRGB(85, 85, 127
 end)
 
 StyAPI:AddPadding("Sty_Setting", "Miscellaneous")
-StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Small", "Medium", "Large"}, function(selected)
+StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Normal", "Medium", "Large"}, function(selected)
     setGuiSize(selected) 
 end)
 StyAPI:AddWholeButton("Sty_Setting", "Delete GUI", Color3.fromRGB(65, 0, 0), function()
