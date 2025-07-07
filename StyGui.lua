@@ -3742,18 +3742,14 @@ end
 local sizeNormal = UDim2.new(0.3, 0, 0.4, 0)
 local sizeMedium = UDim2.new(0.4, 0, 0.5, 0)
 local sizeLarge = UDim2.new(0.6, 0, 0.7, 0)
-
--- Reference to your GUI element
-local myGui = G2L["2"]-- change to your actual GUI object
-
 -- Function to set size
 local function setGuiSize(sizeType)
 	if sizeType == "Normal" then
-		myGui.Size = sizeNormal
+		currentsizeg = sizeNormal
 	elseif sizeType == "Medium" then
-		myGui.Size = sizeMedium
+		currentsizeg = sizeMedium
 	elseif sizeType == "Large" then
-		myGui.Size = sizeLarge
+		currentsizeg = sizeLarge
 	else
 		warn("Unknown size type: " .. tostring(sizeType))
 	end
