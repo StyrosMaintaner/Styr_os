@@ -3870,7 +3870,7 @@ ScriptErrorLogs.InputBegan:Connect(function(input)
 	end
 end)
 
-task.delay(1, function()
+task.delay(2, function()
 	AddMiniNoti("Created by: SHUFel")
 end)
 
