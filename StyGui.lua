@@ -1,6 +1,7 @@
 
 local G2L = {};
 local currentsizeg = UDim2.new(0.3, 0, 0.4, 0)
+local currentsizegsub = UDim2.new(0.301, 0, 0.405, 0)
 -- StarterGui.StyrosGui
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[StyrosGui]];
@@ -2538,7 +2539,7 @@ function StyAPI:AddWindow(Title, OtherTitle)
 	end
 
 	function StyWindowAPI:Open()
-		local tweenIn = TweenService:Create(Windows, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0.301, 0, 0.405, 0)})
+		local tweenIn = TweenService:Create(Windows, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = currentsizegsub})
 		tweenIn:Play()
 		self.IsOpen = true
 	end
@@ -3738,18 +3739,17 @@ function StyAPI:Downloadfile(ServerUrl, fileName, saveAs)
 end
 
 
--- Define sizes
-local sizeNormal = UDim2.new(0.3, 0, 0.4, 0)
-local sizeMedium = UDim2.new(0.4, 0, 0.5, 0)
-local sizeLarge = UDim2.new(0.6, 0, 0.7, 0)
 -- Function to set size
 local function setGuiSize(sizeType)
 	if sizeType == "Normal" then
-		currentsizeg = sizeNormal
+		currentsizeg = UDim2.new(0.3, 0, 0.4, 0)
+		currentsizegsub = UDim2.new(0.301, 0, 0.405, 0)
 	elseif sizeType == "Medium" then
-		currentsizeg = sizeMedium
+		currentsizeg = UDim2.new(0.4, 0, 0.5, 0)
+		currentsizegsub = UDim2.new(0.376, 0, 0.506, 0)
 	elseif sizeType == "Large" then
-		currentsizeg = sizeLarge
+		currentsizeg = UDim2.new(0.6, 0, 0.7, 0)
+		currentsizegsub = UDim2.new(0.451, 0, 0.608, 0)
 	else
 		warn("Unknown size type: " .. tostring(sizeType))
 	end
