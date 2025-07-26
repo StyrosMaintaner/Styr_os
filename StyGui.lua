@@ -3,8 +3,9 @@ local G2L = {};
 local currentsizeg = UDim2.new(0.3, 0, 0.4, 0)
 local currentsizegsub = UDim2.new(0.301, 0, 0.405, 0)
 -- StarterGui.StyrosGui
-G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
+G2L["1"] = Instance.new("ScreenGui", gethui() or game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[StyrosGui]];
+G2L["1"]["IgnoreGuiInset"] = true;
 G2L["1"]["ResetOnSpawn"] = false;
 
 
