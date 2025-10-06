@@ -5,7 +5,6 @@ local currentsizegsub = UDim2.new(0.301, 0, 0.405, 0)
 -- StarterGui.StyrosGui
 G2L["1"] = Instance.new("ScreenGui", gethui() or game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[StyrosGui]];
-G2L["1"]["IgnoreGuiInset"] = true;
 G2L["1"]["ResetOnSpawn"] = false;
 
 
@@ -3874,6 +3873,7 @@ end)
 task.delay(2, function()
 	AddMiniNoti("Created by: SHUFel")
 end)
+
 
 
 return StyAPI -- Return the StyAPI table for further use
