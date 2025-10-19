@@ -2,7 +2,7 @@ local a=2^32;local b=a-1;local function c(d,e)local f,g=0,1;while d~=0 or e~=0 d
 
 
 return {
-    lEncode = a3,
-    lDecode = aw,
-    lDigest = aZ
+    a3 = a3,
+    aw = aw,
+    aZ = aZ
 }
