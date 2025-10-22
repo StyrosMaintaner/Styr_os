@@ -3740,7 +3740,7 @@ end
 
 
 -- Function to set size
-local function setGuiSize(sizeType)
+function StyAPI:setGuiSize(sizeType)
 	if sizeType == "Normal" then
 		currentsizeg = UDim2.new(0.3, 0, 0.4, 0)
 		currentsizegsub = UDim2.new(0.301, 0, 0.405, 0)
@@ -3767,7 +3767,7 @@ StyAPI:AddKeybind("Sty_Setting", "GUI Toggle", "Keybind for hiding the gui", Enu
 	end
 end)
 StyAPI:AddDropdown("Sty_Setting", "GUI Size", "", {"Normal", "Medium", "Large"}, function(selected)
-    setGuiSize(selected) 
+    StyAPI:setGuiSize(selected) 
 end)
 
 function findMatchingConfigs()
