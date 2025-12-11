@@ -2486,7 +2486,7 @@ function StyAPI:AddWindow(Title, OtherTitle)
 	for _, obj in pairs(Sty_Gui.SubWindowsInstance:GetChildren()) do
 		if obj:IsA("GuiObject") then
 			windowCount = windowCount + 1
-		end
+		end 
 	end
 
 	-- Set position with cascading effect
@@ -2564,6 +2564,10 @@ ScriptWindowsErrorLogs = StyAPI:AddWindow("Event Error Log")
 function StyAPI:AddButton(osParent, Title, Subtitle, func, ButtonText, ...)
 	local button = Sty_Gui.Assets.AddButton:Clone()
 	local scriptcontent = {...}
+	local buttonfunc = {
+		Self = button,
+		Hide = false
+	}
 	local processing = false
 	button.Name = Title
 	button.Title.Text = Title
@@ -2611,7 +2615,21 @@ function StyAPI:AddButton(osParent, Title, Subtitle, func, ButtonText, ...)
 			button.TextButton.UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))}
 		end)
 	end)
-	return button
+
+	local cacheyaxis = button.Size.Y.Scale
+	local hiddenpath = button
+	hiddenpath.ClipsDescendants = true
+	function buttonfunc:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
+	return buttonfunc
 end
 
 function StyAPI:AddSlider(osParent, Title, Subtitle, Min, Max, Increment, Default, callback)
@@ -2768,6 +2786,20 @@ function StyAPI:AddSlider(osParent, Title, Subtitle, Min, Max, Increment, Defaul
 			SliderSet:Set(GUIConfig[StyAPI.Title][osParent][Title].Value)
 		end
 	end
+	
+	local cacheyaxis = slider.Size.Y.Scale
+	local hiddenpath = slider
+	hiddenpath.ClipsDescendants = true
+	function SliderSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	--SliderSet:Load() -- Initial load
 	setPosition(nil, Config.Default) -- Set default and call callback
 
@@ -2843,6 +2875,20 @@ function StyAPI:AddToggle(osParent, Title, Subtitle, callback, Default)
 			ToggleSet:Set(GUIConfig[StyAPI.Title][osParent][Title].Value)
 		end
 	end
+
+	local cacheyaxis = toggle.Size.Y.Offset
+	local hiddenpath = toggle
+	hiddenpath.ClipsDescendants = true
+	function ToggleSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	--ToggleSet:Load() -- Initial load
 
 	-- <<< [NEW] Register toggle
@@ -2904,6 +2950,19 @@ function StyAPI:AddTextbox(osParent, Title, Subtitle, callback, TextDisappear, D
 	function TextBoxSet:Load()
 		if GUIConfig[StyAPI.Title] and GUIConfig[StyAPI.Title][osParent] and GUIConfig[StyAPI.Title][osParent][Title] and GUIConfig[StyAPI.Title][osParent][Title].Type == "Textbox" then
 			TextBoxSet:Set(GUIConfig[StyAPI.Title][osParent][Title].Value)
+		end
+	end
+	local cacheyaxis = textbox.Size.Y.Scale
+	local hiddenpath = textbox
+	hiddenpath.ClipsDescendants = true
+	function TextBoxSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
 		end
 	end
 	--TextBoxSet:Load() -- Initial load
@@ -3000,6 +3059,19 @@ function StyAPI:AddKeybind(osParent, Title, Subtitle, DefaultKeybind, func, ...)
 			end
 		end
 	end
+	local cacheyaxis = keybind.Size.Y.Scale
+	local hiddenpath = keybind
+	hiddenpath.ClipsDescendants = true
+	function KeybindSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	--KeybindSet:Load() -- Initial load
 
 	-- <<< [NEW] Register keybind
@@ -3010,6 +3082,9 @@ end
 
 function StyAPI:AddInfo(osParent, Title, Subtitle)
 	local Info = Sty_Gui.Assets.AddInfo:Clone()
+	local InfoSet = {
+		Self = Info,
+	}
 	Info.Title.Text = Title
 	Info.Title.Subtitle.Text = Subtitle
 	Info.Name = Title
@@ -3028,7 +3103,21 @@ function StyAPI:AddInfo(osParent, Title, Subtitle)
 		return
 	end
 	Info.Parent = parentContainer
-	return Info
+
+	local cacheyaxis = Info.Size.Y.Scale
+	local hiddenpath = Info
+	hiddenpath.ClipsDescendants = true
+	function InfoSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
+	return InfoSet
 end
 
 function StyAPI:AddTextLabel(osParent, Title, Subtitle)
@@ -3247,6 +3336,20 @@ function StyAPI:AddTextLabel(osParent, Title, Subtitle)
 	function TextLabelAPI:EditTitleColor(Color)
 		TextLabel.Title.TextColor3 = Color
 	end
+
+	local cacheyaxis = TextLabel.Size.Y.Scale
+	local hiddenpath = TextLabel
+	hiddenpath.ClipsDescendants = true
+	function TextLabelAPI:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	return TextLabelAPI
 end
 function StyAPI:AddDropdown(osParent, Title, Subtitle, optionProvider, callback, DefaultOptionIndex)
@@ -3407,7 +3510,20 @@ function StyAPI:AddDropdown(osParent, Title, Subtitle, optionProvider, callback,
 			lastDropHeight = newH
 		end)
 	end
-
+	
+	local cacheyaxis = dropdown.Size.Y.Scale
+	local hiddenpath = dropdown
+	hiddenpath.ClipsDescendants = true
+	function DropdownSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	--DropdownSet:Load() -- Initial load
 
 	-- <<< [NEW] Register dropdown
@@ -3419,6 +3535,9 @@ end
 function StyAPI:AddWholeButton(osParent, text, color, func, ...)
 	local wholebutton = Sty_Gui.Assets.AddWholeButton:Clone()
 	local scriptcontent = {...}
+	local wholebuttonSet = {
+		Self = wholebutton
+	}
 	wholebutton.Name = text
 	wholebutton.Visible = true
 	wholebutton.Text = text
@@ -3440,13 +3559,29 @@ function StyAPI:AddWholeButton(osParent, text, color, func, ...)
 		warn("- Parent container not found:", osParent)
 		return
 	end
+	local cacheyaxis = wholebutton.Size.Y.Scale
+	local hiddenpath = wholebutton
+	hiddenpath.ClipsDescendants = true
+	function wholebuttonSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
 	wholebutton.Parent = parentContainer
-	return wholebutton -- Returning the button itself as no "Set" object is defined
+	return wholebuttonSet -- Returning the button itself as no "Set" object is defined
 end
 
 function StyAPI:AddPadding(osParent, text)
 	local padding = Sty_Gui.Assets.AddPadding:Clone()
 	padding.Title.Text = text
+	local paddingSet = {
+		Self = padding
+	}
 	padding.Visible = true
 	padding.Name = text
 	local parentContainer = Sty_Gui.MainGui.Windows:FindFirstChild(osParent) or Sty_Gui.SubWindowsInstance:FindFirstChild(osParent).StyFrame 
@@ -3475,7 +3610,20 @@ function StyAPI:AddPadding(osParent, text)
 	task.delay(0.05, updateLine) -- Increased delay slightly
 	padding:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLine)
 	padding.Title:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLine) -- Also when title size changes
-	return padding
+	local cacheyaxis = padding.Size.Y.Scale
+	local hiddenpath = padding
+	hiddenpath.ClipsDescendants = true
+	function paddingSet:Hide(state)
+		-- hide by shrinking the y axis to 0
+		if state == true then 
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		else
+			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
+			tween:Play()
+		end
+	end
+	return paddingSet
 end
 
 function StyAPI:AddNotification(Title, SubTitle, typeof)
@@ -3756,6 +3904,13 @@ function StyAPI:setGuiSize(sizeType)
 	StyAPI:Open()
 end
 
+--check if player is on mobile
+if UserInputService.TouchEnabled then
+	StyAPI:setGuiSize("Large")
+else
+	StyAPI:setGuiSize("Normal")
+end
+
 local Sty_HideKEy = false -- Initialize Sty_HideKEy
 StyAPI:AddKeybind("Sty_Setting", "GUI Toggle", "Keybind for hiding the gui", Enum.KeyCode.F, function(callbackValue)
 	if Sty_HideKEy == true then
@@ -3828,7 +3983,7 @@ StyAPI:AddPadding("Sty_DeveloperDebug", "Debug")
 local ScriptErrorLogs = StyAPI:AddInfo("Sty_DeveloperDebug", "Script error: "..Sty_ScriptErrorCollector, "")
 task.spawn(function()
 	while true do task.wait(1)
-		ScriptErrorLogs.Title.Text = "Script error: "..Sty_ScriptErrorCollector
+		ScriptErrorLogs.Self.Title.Text = "Script error: "..Sty_ScriptErrorCollector
 	end
 end)
 
@@ -3864,7 +4019,7 @@ end, "Read")
 ModifyThisThing:EditTitleColor(Color3.fromRGB(201, 175, 255))
 
 
-ScriptErrorLogs.InputBegan:Connect(function(input)
+ScriptErrorLogs.Self.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		ScriptWindowsErrorLogs:Open()
 	end
