@@ -3513,12 +3513,12 @@ function StyAPI:AddDropdown(osParent, Title, Subtitle, optionProvider, callback,
 	
 	local cacheyaxis = dropdown.Size.Y.Scale
 	local hiddenpath = dropdown
-	hiddenpath.ClipsDescendants = true
 	function DropdownSet:Hide(state)
 		-- hide by shrinking the y axis to 0
 		if state == true then 
 			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
 			tween:Play()
+			tween:Wait
 		else
 			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
 			tween:Play()
@@ -3567,9 +3567,13 @@ function StyAPI:AddWholeButton(osParent, text, color, func, ...)
 		if state == true then 
 			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, 0, hiddenpath.Size.Y.Offset)})
 			tween:Play()
+			tween.Completed:Wait()
+			hiddenpath.Visible = false
 		else
 			local tween = TweenService:Create(hiddenpath, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(hiddenpath.Size.X.Scale, hiddenpath.Size.Y.Scale, cacheyaxis, hiddenpath.Size.Y.Offset)})
 			tween:Play()
+			tween.Completed:Wait()
+			hiddenpath.Visible = true
 		end
 	end
 	wholebutton.Parent = parentContainer
