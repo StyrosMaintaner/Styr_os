@@ -2191,7 +2191,7 @@ local function userPing()
 	local startTime = tick()
 	local success, response = pcall(function()
 		return RequestFunction({
-			Url = "http://styros.mywire.org:11083/user-ping",
+			Url = "https://styros.qzz.io/user-ping",
             Method = "POST",
             Headers = {
                 ["Content-Type"] = "application/json",
@@ -2280,7 +2280,7 @@ local function ErrorCollector(err, NameOf, Parent)
     end)
    	pcall(function()
 		return RequestFunction({
-			Url = "http://styros.mywire.org:11083/send/386bc2eb4b74c71e-script-error-catcher-logs",
+			Url = "https://styros.qzz.io/send/386bc2eb4b74c71e-script-error-catcher-logs",
             Method = "POST",
             Headers = {
                 ["Content-Type"] = "application/json",
