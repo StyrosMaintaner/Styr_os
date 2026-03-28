@@ -3908,11 +3908,16 @@ function StyAPI:setGuiSize(sizeType)
 end
 
 --check if player is on mobile
-if UserInputService.TouchEnabled then
-	StyAPI:setGuiSize("Large")
-else
-	StyAPI:setGuiSize("Normal")
-end
+task.spawn(function()
+	for i = 1,3 do 
+		task.wait(0.5)
+		if UserInputService.TouchEnabled then
+			StyAPI:setGuiSize("Large")
+		else
+			StyAPI:setGuiSize("Normal")
+		end
+	end
+end)
 
 local Sty_HideKEy = false -- Initialize Sty_HideKEy
 StyAPI:AddKeybind("Sty_Setting", "GUI Toggle", "Keybind for hiding the gui", Enum.KeyCode.F, function(callbackValue)
