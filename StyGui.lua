@@ -307,7 +307,8 @@ G2L["93r"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["93r"]["BackgroundTransparency"] = 1;
 G2L["93r"]["ImageRectOffset"] = Vector2.new(902, 223);
 G2L["93r"]["Name"] = [[DownloadLogo]];
-G2L["93r"]["Position"] = UDim2.new(0.07532, 0, 0.21011, 0);
+G2L["93r"]["Position"] = UDim2.new(0.5, 0, 0.15, 0);
+G2L["93r"]["AnchorPoint"] = Vector2.new(0.5, 0);
 
 -- StarterGui.StyrosGui.MainGui.Windows.Sty_Download.Title
 G2L["axq"] = Instance.new("TextLabel", G2L["5lv"]);
@@ -320,12 +321,12 @@ G2L["axq"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["axq"]["FontFace"] = Font.new([[rbxasset://fonts/families/RobotoMono.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["axq"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["axq"]["BackgroundTransparency"] = 1;
-G2L["axq"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["axq"]["AnchorPoint"] = Vector2.new(0.5, 0);
 G2L["axq"]["Size"] = UDim2.new(0.68448, 0, 0.06982, 0);
 G2L["axq"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["axq"]["Text"] = [[88.3%]];
 G2L["axq"]["Name"] = [[Title]];
-G2L["axq"]["Position"] = UDim2.new(0.63438, 0, 0.52685, 0);
+G2L["axq"]["Position"] = UDim2.new(0.5, 0, 0.7, 0);
 
 -- Subtitle
 G2L["6rg"] = Instance.new("TextLabel", G2L["axq"]);
